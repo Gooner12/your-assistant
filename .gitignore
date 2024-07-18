@@ -1,6 +1,4 @@
 .env
 .venv
-lancedb
 output
-cache
 check.py
