@@ -1,0 +1,6 @@
+.env
+.venv
+lancedb
+output
+cache
+chekc.py
