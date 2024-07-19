@@ -1,20 +1,28 @@
 from fastapi import FastAPI
 import subprocess
+import sys
+import os
 from pydantic import BaseModel
 
 app = FastAPI()
+python_path = os.path.abspath(".")
 
 class Query(BaseModel):
     question: str
 
 @app.post("/query")
 async def run_query(query: Query):
+    print(query.question)
     command = [
-        "python", "-m", "graphrag.query",
+        sys.executable, "-m", "graphrag.query",
         "--root", "./ragtest",
         "--method", "global",
-        query.question
+        "Who is Thomas Edison?"
     ]
+
+    # Environment variables
+    env = os.environ.copy()
+    env["PYTHONPATH"] = python_path
     
     result = subprocess.run(command, capture_output=True, text=True)
     
