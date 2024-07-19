@@ -5,7 +5,8 @@ import os
 from pydantic import BaseModel
 
 app = FastAPI()
-python_path = os.path.abspath(".")
+# Ensure the correct PYTHONPATH
+python_path = os.path.abspath(".") # Modify this if the graphrag module is in a different directory
 
 class Query(BaseModel):
     question: str
@@ -34,3 +35,9 @@ async def run_query(query: Query):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+# Explanation:
+
+# sys.executable: Ensures that the same Python interpreter running the script is used in the subprocess.
+# PYTHONPATH: Sets the PYTHONPATH environment variable to ensure Python can find the graphrag module.
+# env: Copies the current environment variables and updates PYTHONPATH.    
